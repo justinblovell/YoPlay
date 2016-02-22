@@ -16,8 +16,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        // The next 8 lines take in the key value pair that is passed from swiping a local notification
+        if let options = launchOptions {
+            if let notification = options[UIApplicationLaunchOptionsLocalNotificationKey] as? UILocalNotification {
+                if let userInfo = notification.userInfo {
+                    let notificationField = userInfo["customField1"] as! String
+                    // do something neat here
+                }
+            }
+        }
         return true
+    }
+    
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        if let userInfo = notification.userInfo {
+            let customField1 = userInfo["CustomField1"] as! String
+            print("didReceiveLocalNotification: \(customField1)")
+            let alertController = UIAlertController(title: "Warning!", message:
+                "Your reserve is out of date!", preferredStyle: UIAlertControllerStyle.Alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+            
+            self.window?.rootViewController?.presentViewController(alertController, animated: true, completion: nil)
+        }
     }
 
     func applicationWillResignActive(application: UIApplication) {
