@@ -15,6 +15,8 @@
 		41A713A21C503C4A006E9B48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 41A713A01C503C4A006E9B48 /* LaunchScreen.storyboard */; };
 		41A713AD1C503C4A006E9B48 /* YoPlayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A713AC1C503C4A006E9B48 /* YoPlayTests.swift */; };
 		41A713B81C503C4A006E9B48 /* YoPlayUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A713B71C503C4A006E9B48 /* YoPlayUITests.swift */; };
+		5EB47E2B1DC65F7A0023B8A3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EB47E2A1DC65F7A0023B8A3 /* CoreData.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		5EB47E2D1DC6BBB30023B8A3 /* Reserve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB47E2C1DC6BBB30023B8A3 /* Reserve.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		41A713B31C503C4A006E9B48 /* YoPlayUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YoPlayUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		41A713B71C503C4A006E9B48 /* YoPlayUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoPlayUITests.swift; sourceTree = "<group>"; };
 		41A713B91C503C4A006E9B48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5EB47E2A1DC65F7A0023B8A3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		5EB47E2C1DC6BBB30023B8A3 /* Reserve.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reserve.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EB47E2B1DC65F7A0023B8A3 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +88,7 @@
 				41A713AB1C503C4A006E9B48 /* YoPlayTests */,
 				41A713B61C503C4A006E9B48 /* YoPlayUITests */,
 				41A713921C503C49006E9B48 /* Products */,
+				5EB47E291DC65F7A0023B8A3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -106,6 +112,7 @@
 				41A713A01C503C4A006E9B48 /* LaunchScreen.storyboard */,
 				41A713A31C503C4A006E9B48 /* Info.plist */,
 				41A7139B1C503C4A006E9B48 /* YoPlay.xcdatamodeld */,
+				5EB47E2C1DC6BBB30023B8A3 /* Reserve.swift */,
 			);
 			path = YoPlay;
 			sourceTree = "<group>";
@@ -126,6 +133,14 @@
 				41A713B91C503C4A006E9B48 /* Info.plist */,
 			);
 			path = YoPlayUITests;
+			sourceTree = "<group>";
+		};
+		5EB47E291DC65F7A0023B8A3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5EB47E2A1DC65F7A0023B8A3 /* CoreData.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,13 +211,22 @@
 				TargetAttributes = {
 					41A713901C503C49006E9B48 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 67N73KQHZW;
+						LastSwiftMigration = 0800;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					41A713A71C503C4A006E9B48 = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0800;
 						TestTargetID = 41A713901C503C49006E9B48;
 					};
 					41A713B21C503C4A006E9B48 = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0800;
 						TestTargetID = 41A713901C503C49006E9B48;
 					};
 				};
@@ -260,6 +284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				41A713971C503C4A006E9B48 /* ViewController.swift in Sources */,
+				5EB47E2D1DC6BBB30023B8A3 /* Reserve.swift in Sources */,
 				41A7139D1C503C4A006E9B48 /* YoPlay.xcdatamodeld in Sources */,
 				41A713951C503C4A006E9B48 /* AppDelegate.swift in Sources */,
 			);
@@ -404,10 +429,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Justin Lovell (67N73KQHZW)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				INFOPLIST_FILE = YoPlay/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = u.YoPlay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -416,10 +448,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Justin Lovell (67N73KQHZW)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				INFOPLIST_FILE = YoPlay/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = u.YoPlay;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -431,6 +470,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = u.YoPlayTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YoPlay.app/YoPlay";
 			};
 			name = Debug;
@@ -443,6 +483,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = u.YoPlayTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YoPlay.app/YoPlay";
 			};
 			name = Release;
@@ -454,6 +495,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = u.YoPlayUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = YoPlay;
 				USES_XCTRUNNER = YES;
 			};
@@ -466,6 +508,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = u.YoPlayUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = YoPlay;
 				USES_XCTRUNNER = YES;
 			};

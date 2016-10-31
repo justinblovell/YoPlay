@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController {
-    var repackDate = NSDate()
+    var repackDate = Date()
 
     @IBOutlet weak var repackDateField: UITextField!
     
@@ -19,30 +20,49 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var lastDayDisplayLabel: UILabel!
     
-    @IBAction func repackDateEditingDidBegin(sender: UITextField) {
+    @IBAction func saveButtonPressed(_ sender: AnyObject) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let managedContext = appDelegate.managedObjectContext
+        
+        let entity =  NSEntityDescription.entity(forEntityName: "Reserve",
+                                                 in:managedContext)
+        
+        let reserve = NSManagedObject(entity: entity!,
+                                     insertInto: managedContext)
+        
+        reserve.setValue(lastDayDisplayLabel.text, forKey: "repackDate")
+        
+        do {
+            try managedContext.save()
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
+        }
+    }
+    
+    @IBAction func repackDateEditingDidBegin(_ sender: UITextField) {
         
         let datePickerView:UIDatePicker = UIDatePicker()
         
-        datePickerView.datePickerMode = UIDatePickerMode.Date
+        datePickerView.datePickerMode = UIDatePickerMode.date
         
         sender.inputView = datePickerView
         
-        datePickerView.addTarget(self, action: Selector("datePickerValueChanged:"), forControlEvents: UIControlEvents.ValueChanged)
+        datePickerView.addTarget(self, action: #selector(ViewController.datePickerValueChanged(_:)), for: UIControlEvents.valueChanged)
     }
     
-    @IBAction func scheduleNotificationButtonPressed(sender: AnyObject) {
-        guard let settings = UIApplication.sharedApplication().currentUserNotificationSettings() else { return }
+    @IBAction func scheduleNotificationButtonPressed(_ sender: AnyObject) {
+        guard let settings = UIApplication.shared.currentUserNotificationSettings else { return }
         
-        if settings.types == .None {
-            let ac = UIAlertController(title: "Can't schedule", message: "Either we don't have permission to schedule notifications, or we haven't asked yet.", preferredStyle: .Alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-            presentViewController(ac, animated: true, completion: nil)
+        if settings.types == UIUserNotificationType() {
+            let ac = UIAlertController(title: "Can't schedule", message: "Either we don't have permission to schedule notifications, or we haven't asked yet.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(ac, animated: true, completion: nil)
             return
         }
         
         let notification = UILocalNotification()
         
-        notification.fireDate = NSDate(timeIntervalSinceNow: 5)
+        notification.fireDate = repackDate
         
         notification.alertBody = "Hey you! Yeah you! Swipe to unlock!"
         
@@ -52,21 +72,21 @@ class ViewController: UIViewController {
         
         notification.userInfo = ["CustomField1": "w00t"]
         
-        UIApplication.sharedApplication().scheduleLocalNotification(notification)
+        UIApplication.shared.scheduleLocalNotification(notification)
     }
     
-    func datePickerValueChanged(sender:UIDatePicker) {
+    func datePickerValueChanged(_ sender:UIDatePicker) {
         
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         repackDate = sender.date
         
-        dateFormatter.dateStyle = NSDateFormatterStyle.MediumStyle
+        dateFormatter.dateStyle = DateFormatter.Style.medium
         
-        dateFormatter.timeStyle = NSDateFormatterStyle.NoStyle
+        dateFormatter.timeStyle = DateFormatter.Style.none
         
-        repackDateField.text = dateFormatter.stringFromDate(sender.date)
+        repackDateField.text = dateFormatter.string(from: sender.date)
         
-        lastDayDisplayLabel.text = dateFormatter.stringFromDate(NSCalendar.currentCalendar().dateByAddingUnit(.Day, value: 180, toDate: sender.date, options: NSCalendarOptions(rawValue: 0))!) //Adds 180 days to the date
+        lastDayDisplayLabel.text = dateFormatter.string(from: (Calendar.current as NSCalendar).date(byAdding: .day, value: 180, to: sender.date, options: NSCalendar.Options(rawValue: 0))!) //Adds 180 days to the date
         
     }
     
@@ -88,8 +108,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
-        UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
+        let notificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+        UIApplication.shared.registerUserNotificationSettings(notificationSettings)
     }
 
     override func didReceiveMemoryWarning() {
@@ -97,7 +117,7 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         repackDateField.resignFirstResponder()
     }
     
