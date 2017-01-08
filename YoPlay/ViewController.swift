@@ -20,7 +20,14 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var lastDayDisplayLabel: UILabel!
     
+    @IBOutlet weak var savedRepackDate: UILabel?
+    
+    
     @IBAction func saveButtonPressed(_ sender: AnyObject) {
+        let defaults = UserDefaults.standard
+        defaults.setValue(lastDayDisplayLabel.text, forKey: "MyKey")
+        defaults.synchronize()
+        savedRepackDate?.text = defaults.string(forKey: "MyKey")
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
         
@@ -110,6 +117,8 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         let notificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
         UIApplication.shared.registerUserNotificationSettings(notificationSettings)
+        let defaults = UserDefaults.standard
+        savedRepackDate?.text = defaults.string(forKey: "MyKey")
     }
 
     override func didReceiveMemoryWarning() {
