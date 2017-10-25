@@ -127,6 +127,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    func dateComponentFromNSDate(date: Date)-> DateComponents{
+        let dateComponents = NSCalendar.current.dateComponents([.year, .month, .day], from: date)
+        return dateComponents
+    }
 
 }
 

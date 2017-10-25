@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import EventKit
 import CoreData
 
 class ViewController: UIViewController {
-    var repackDate = Date()
+    var eventStore = EKEventStore()
+    var packDate = Date()
+    var lastJumpDate = Date()
 
     @IBOutlet weak var repackDateField: UITextField!
     
@@ -57,35 +60,27 @@ class ViewController: UIViewController {
         datePickerView.addTarget(self, action: #selector(ViewController.datePickerValueChanged(_:)), for: UIControlEvents.valueChanged)
     }
     
-    @IBAction func scheduleNotificationButtonPressed(_ sender: AnyObject) {
-        guard let settings = UIApplication.shared.currentUserNotificationSettings else { return }
+    @IBAction func createReminderButtonPressed(_ sender: AnyObject) {
+        let reminder = EKReminder(eventStore: self.eventStore)
+        reminder.title = "Reserve repack date"
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
-        if settings.types == UIUserNotificationType() {
-            let ac = UIAlertController(title: "Can't schedule", message: "Either we don't have permission to schedule notifications, or we haven't asked yet.", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            present(ac, animated: true, completion: nil)
-            return
+        let dueDateComponents = appDelegate.dateComponentFromNSDate(date: self.lastJumpDate)
+        reminder.dueDateComponents = dueDateComponents
+        reminder.calendar = self.eventStore.defaultCalendarForNewReminders()
+        
+        do {
+            try self.eventStore.save(reminder, commit: true)
+            showSuccessAlert()
+        } catch{
+            print("Error creating and saving new reminder : \(error)")
         }
-        
-        let notification = UILocalNotification()
-        
-        notification.fireDate = repackDate
-        
-        notification.alertBody = "Hey you! Yeah you! Swipe to unlock!"
-        
-        notification.alertAction = "be awesome!"
-        
-        notification.soundName = UILocalNotificationDefaultSoundName
-        
-        notification.userInfo = ["CustomField1": "w00t"]
-        
-        UIApplication.shared.scheduleLocalNotification(notification)
     }
     
     func datePickerValueChanged(_ sender:UIDatePicker) {
         
         let dateFormatter = DateFormatter()
-        repackDate = sender.date
+        packDate = sender.date
         
         dateFormatter.dateStyle = DateFormatter.Style.medium
         
@@ -93,32 +88,35 @@ class ViewController: UIViewController {
         
         repackDateField.text = dateFormatter.string(from: sender.date)
         
+        lastJumpDate = (Calendar.current as NSCalendar).date(byAdding: .day, value: 180, to: sender.date, options: NSCalendar.Options(rawValue: 0))!
+        
         lastDayDisplayLabel.text = dateFormatter.string(from: (Calendar.current as NSCalendar).date(byAdding: .day, value: 180, to: sender.date, options: NSCalendar.Options(rawValue: 0))!) //Adds 180 days to the date
         
     }
     
-//    @IBAction func saveButtonPressed(sender: UIButton) {
-//        var dateFormatter = NSDateFormatter() //Creates a formatter
-//       
-//        dateFormatter.dateFormat = "yyyy-MM-dd" //Sets the format of the date for the formatter
-//        
-//        let repackDateText = repackDateField.text
-//
-//
-//        let currentRepackDate = dateFormatter.dateFromString(repackDateText!) //Converts the text to the formatted date object
-//
-//        let futureRepackDate = NSCalendar.currentCalendar().dateByAddingUnit(.Day, value: 180, toDate: currentRepackDate!, options: NSCalendarOptions(rawValue: 0)) //Adds 180 days to the date
-//        
-//        lastDayDisplayLabel.text = dateFormatter.stringFromDate(futureRepackDate!) //Converts the new date back to text to be displayed
-//    }
-    
+    func showSuccessAlert() {
+        let successAlert = UIAlertController(title: "Success!", message: "A reminder was created in the Reminders App.", preferredStyle: UIAlertControllerStyle.alert)
+        successAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+        present(successAlert, animated: true, completion: nil)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // Do any additional setup after loading the view, typically from a nib.
-        let notificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-        UIApplication.shared.registerUserNotificationSettings(notificationSettings)
+//        let notificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+//        UIApplication.shared.registerUserNotificationSettings(notificationSettings)
         let defaults = UserDefaults.standard
         savedRepackDate?.text = defaults.string(forKey: "MyKey")
+        
+        eventStore.requestAccess(to: EKEntityType.reminder, completion: {
+            (accessGranted: Bool, error: Error?) in
+            
+            if accessGranted == true {
+                NSLog("I have access!!")
+            } else {
+                NSLog("I DO NOT have access!!")
+            }
+        })
     }
 
     override func didReceiveMemoryWarning() {
@@ -129,8 +127,6 @@ class ViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         repackDateField.resignFirstResponder()
     }
-    
-
 
 }
 
