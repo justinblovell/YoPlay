@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        UIApplication.shared.statusBarStyle = .lightContent
         // The next 8 lines take in the key value pair that is passed from swiping a local notification
         if let options = launchOptions {
             if let notification = options[UIApplicationLaunchOptionsKey.localNotification] as? UILocalNotification {

@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     var eventStore = EKEventStore()
     var packDate = Date()
     var lastJumpDate = Date()
+    var reminderName = "Default"
 
     @IBOutlet weak var repackDateField: UITextField!
     
@@ -49,6 +50,12 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func leadTheWayPressed(_ sender: Any) {
+        if let url = URL(string: "http://www.leadthewayskydiving.com") {
+            UIApplication.shared.open(url, options: [:])
+        }
+    }
+    
     @IBAction func repackDateEditingDidBegin(_ sender: UITextField) {
         
         let datePickerView:UIDatePicker = UIDatePicker()
@@ -61,20 +68,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func createReminderButtonPressed(_ sender: AnyObject) {
-        let reminder = EKReminder(eventStore: self.eventStore)
-        reminder.title = "Reserve repack date"
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
-        let dueDateComponents = appDelegate.dateComponentFromNSDate(date: self.lastJumpDate)
-        reminder.dueDateComponents = dueDateComponents
-        reminder.calendar = self.eventStore.defaultCalendarForNewReminders()
-        
-        do {
-            try self.eventStore.save(reminder, commit: true)
-            showSuccessAlert()
-        } catch{
-            print("Error creating and saving new reminder : \(error)")
-        }
+        promtForReminderName()
     }
     
     func datePickerValueChanged(_ sender:UIDatePicker) {
@@ -99,12 +93,41 @@ class ViewController: UIViewController {
         successAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
         present(successAlert, animated: true, completion: nil)
     }
+    
+    func promtForReminderName() {
+        let alert = UIAlertController(title: "Reminder Name", message: "Enter the title of your reminder or name of your rig", preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addTextField { (inputNameField) in
+            inputNameField.text = "rig 1"
+        }
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+            self.saveReminder(alert: alert!)
+        }))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func saveReminder(alert: UIAlertController) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let reminder = EKReminder(eventStore: self.eventStore)
+        let dueDateComponents = appDelegate.dateComponentFromNSDate(date: self.lastJumpDate)
+        
+        reminder.title = (alert.textFields![0].text)!
+        reminder.dueDateComponents = dueDateComponents
+        reminder.calendar = self.eventStore.defaultCalendarForNewReminders()
+        
+        do {
+            try self.eventStore.save(reminder, commit: true)
+            self.showSuccessAlert()
+        } catch{
+            print("Error creating and saving new reminder : \(error)")
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view, typically from a nib.
-//        let notificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-//        UIApplication.shared.registerUserNotificationSettings(notificationSettings)
+    
         let defaults = UserDefaults.standard
         savedRepackDate?.text = defaults.string(forKey: "MyKey")
         
