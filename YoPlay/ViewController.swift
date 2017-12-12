@@ -49,6 +49,12 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func leadTheWayPressed(_ sender: Any) {
+        if let url = URL(string: "http://www.leadthewayskydiving.com") {
+            UIApplication.shared.open(url, options: [:])
+        }
+    }
+    
     @IBAction func repackDateEditingDidBegin(_ sender: UITextField) {
         
         let datePickerView:UIDatePicker = UIDatePicker()
@@ -129,4 +135,3 @@ class ViewController: UIViewController {
     }
 
 }
-

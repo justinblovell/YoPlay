@@ -19,17 +19,19 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.1</string>
+	<string>1.0.2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>6</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.sports</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCalendarsUsageDescription</key>
+	<string>To help you save your repack date in Reminders</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copywright © 2016, LeadTheWaySkydiving. All rights reserved.</string>
+	<string>Copywright © 2017, LeadTheWaySkydiving. All rights reserved.</string>
 	<key>NSRemindersUsageDescription</key>
 	<string>To help you save your repack date in Reminders</string>
 	<key>UILaunchStoryboardName</key>
@@ -40,8 +42,6 @@
 	<array>
 		<string>armv7</string>
 	</array>
-	<key>NSCalendarsUsageDescription</key>
-	<string>To help you save your repack date in Reminders</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
