@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YoPlay/ViewController.swift"
+            timestampString = "475382791.046213"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "ViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "YoPlay.ViewController.repackDate.setter : __ObjC.NSDate"
+                  moduleName = "YoPlay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/EVO/YoPlay/YoPlay/ViewController.swift"
+                  timestampString = "475382890.435609"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "YoPlay.ViewController.repackDate.materializeForSet : __ObjC.NSDate"
+                  moduleName = "YoPlay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/EVO/YoPlay/YoPlay/ViewController.swift"
+                  timestampString = "475382890.435759"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "12">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "YoPlay.ViewController.init (YoPlay.ViewController.Type)(nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.NSBundle&gt;) -&gt; YoPlay.ViewController"
+                  moduleName = "YoPlay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/EVO/YoPlay/YoPlay/ViewController.swift"
+                  timestampString = "475382890.435907"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "57">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "YoPlay.ViewController.init (YoPlay.ViewController.Type)(coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;YoPlay.ViewController&gt;"
+                  moduleName = "YoPlay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/EVO/YoPlay/YoPlay/ViewController.swift"
+                  timestampString = "475382890.436056"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "19">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YoPlay/ViewController.swift"
+            timestampString = "475383375.32771"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "14"
+            endingLineNumber = "14"
+            landmarkName = "ViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "YoPlay.ViewController.repackDateField.setter : weak Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UITextField&gt;"
+                  moduleName = "YoPlay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/EVO/YoPlay/YoPlay/ViewController.swift"
+                  timestampString = "475383396.296538"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "YoPlay.ViewController.repackDateField.materializeForSet : weak Swift.ImplicitlyUnwrappedOptional&lt;__ObjC.UITextField&gt;"
+                  moduleName = "YoPlay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/EVO/YoPlay/YoPlay/ViewController.swift"
+                  timestampString = "475383396.296725"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "YoPlay.ViewController.init (YoPlay.ViewController.Type)(nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.NSBundle&gt;) -&gt; YoPlay.ViewController"
+                  moduleName = "YoPlay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/EVO/YoPlay/YoPlay/ViewController.swift"
+                  timestampString = "475383396.296881"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "127">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "YoPlay.ViewController.init (YoPlay.ViewController.Type)(coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;YoPlay.ViewController&gt;"
+                  moduleName = "YoPlay"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/EVO/YoPlay/YoPlay/ViewController.swift"
+                  timestampString = "475383396.297033"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "67">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
