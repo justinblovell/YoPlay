@@ -109,8 +109,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view, typically from a nib.
-//        let notificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-//        UIApplication.shared.registerUserNotificationSettings(notificationSettings)
         let defaults = UserDefaults.standard
         savedRepackDate?.text = defaults.string(forKey: "MyKey")
         
