@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     var eventStore = EKEventStore()
     var packDate = Date()
     var lastJumpDate = Date()
+    var calendar: EKCalendar!
 
     @IBOutlet weak var repackDateField: UITextField!
     
@@ -67,19 +68,77 @@ class ViewController: UIViewController {
     }
     
     @IBAction func createReminderButtonPressed(_ sender: AnyObject) {
-        let reminder = EKReminder(eventStore: self.eventStore)
-        reminder.title = "Reserve repack date"
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let alert = UIAlertController(title: "Reminder Name", message: "Enter the title of your reminder or name of your rig", preferredStyle: UIAlertControllerStyle.alert)
         
+        alert.addTextField { (inputNameField) in
+            inputNameField.text = "Rig 1"
+        }
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+            self.saveReminder(alert: alert!)
+        }))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func saveReminder(alert: UIAlertController) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let reminder = EKReminder(eventStore: self.eventStore)
         let dueDateComponents = appDelegate.dateComponentFromNSDate(date: self.lastJumpDate)
+        
+        reminder.title = (alert.textFields![0].text)!
         reminder.dueDateComponents = dueDateComponents
         reminder.calendar = self.eventStore.defaultCalendarForNewReminders()
         
         do {
             try self.eventStore.save(reminder, commit: true)
-            showSuccessAlert()
+            self.showSuccessAlert()
         } catch{
             print("Error creating and saving new reminder : \(error)")
+        }
+    }
+    
+    @IBAction func saveDateButtonPressed(_ sender: AnyObject) {
+        
+        let alert = UIAlertController(title: "Reminder Name", message: "Enter the title of your reminder or name of your rig", preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addTextField { (inputNameField) in
+            inputNameField.text = "Rig 1"
+        }
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+            self.saveCalendar(alert: alert!)
+        }))
+        
+        present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func saveCalendar(alert: UIAlertController) {
+        
+        let event = EKEvent(eventStore: eventStore)
+        
+        event.calendar = self.eventStore.defaultCalendarForNewEvents
+        event.title = (alert.textFields![0].text)!
+        event.isAllDay = true
+        event.startDate = self.lastJumpDate
+        event.endDate = self.lastJumpDate
+        
+        let twoWeekAlarm:EKAlarm = EKAlarm(relativeOffset: -1209600)
+        let dayOfAlarm:EKAlarm = EKAlarm(relativeOffset: 0)
+        event.alarms = [twoWeekAlarm, dayOfAlarm]
+
+        
+        // Save the calendar using the Event Store instance
+        
+        do {
+            try eventStore.save(event, span: .thisEvent, commit: true)
+        } catch {
+            let alert = UIAlertController(title: "Event could not save", message: (error as NSError).localizedDescription, preferredStyle: .alert)
+            let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(OKAction)
+            
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
@@ -105,6 +164,7 @@ class ViewController: UIViewController {
         successAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
         present(successAlert, animated: true, completion: nil)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -116,9 +176,19 @@ class ViewController: UIViewController {
             (accessGranted: Bool, error: Error?) in
             
             if accessGranted == true {
-                NSLog("I have access!!")
+                NSLog("I have access to the reminders!!")
             } else {
-                NSLog("I DO NOT have access!!")
+                NSLog("I DO NOT have access to the reminders!!")
+            }
+        })
+        
+        EKEventStore().requestAccess(to: .event, completion: {
+            (accessGranted: Bool, error: Error?) in
+            
+            if accessGranted == true {
+                NSLog("I have access to the calendar!!")
+            } else {
+                NSLog("I DO NOT have access to the calendar!!")
             }
         })
     }
